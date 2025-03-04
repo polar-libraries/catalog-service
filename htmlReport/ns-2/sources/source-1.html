@@ -1,0 +1,153 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BookController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.polarbookshop.catalog_service.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: BookController (com.polarbookshop.catalog_service.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.polarbookshop.catalog_service.controller;
+&nbsp;
+&nbsp;import com.polarbookshop.catalog_service.domain.BookService;
+&nbsp;import com.polarbookshop.catalog_service.dto.BookRequest;
+&nbsp;import com.polarbookshop.catalog_service.dto.BookResponse;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;books&quot;)
+&nbsp;public class BookController {
+&nbsp;
+&nbsp;    private final BookService bookService;
+&nbsp;
+<b class="fc">&nbsp;    public BookController(BookService bookService) {</b>
+<b class="fc">&nbsp;        this.bookService = bookService;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @GetMapping
+&nbsp;    public Iterable&lt;BookResponse&gt; get() {
+<b class="fc">&nbsp;        return bookService.viewBookList();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;{isbn}&quot;)
+&nbsp;    public BookResponse getByIsbn(@PathVariable String isbn) {
+<b class="fc">&nbsp;        return bookService.viewBookDetails(isbn);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping
+&nbsp;    @ResponseStatus(HttpStatus.CREATED)
+&nbsp;    public BookResponse post(@Valid @RequestBody BookRequest request) {
+<b class="fc">&nbsp;        return bookService.addBookToCatalog(request);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;{isbn}&quot;)
+&nbsp;    @ResponseStatus(HttpStatus.NO_CONTENT)
+&nbsp;    public void delete(@PathVariable String isbn) {
+<b class="fc">&nbsp;        bookService.removeBookFromCatalog(isbn);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @PutMapping(&quot;{isbn}&quot;)
+&nbsp;    public BookResponse put(@PathVariable String isbn, @Valid @RequestBody BookRequest request) {
+<b class="fc">&nbsp;        return bookService.editBookDetails(isbn, request);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-03-04 19:54</div>
+</div>
+</body>
+</html>
