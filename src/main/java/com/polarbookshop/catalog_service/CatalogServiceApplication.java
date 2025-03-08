@@ -2,7 +2,10 @@ package com.polarbookshop.catalog_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+@ConfigurationPropertiesScan
 @SpringBootApplication
 public class CatalogServiceApplication {
 
