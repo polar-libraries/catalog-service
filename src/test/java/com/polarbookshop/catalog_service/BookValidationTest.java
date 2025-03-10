@@ -102,7 +102,7 @@ public class BookValidationTest {
         var book = Book.of(null, null, null, null, null);
         var violations = getConstraintViolations(book);
 
-        assertThat(violations).hasSize(4);
+        assertThat(violations).hasSize(5);
         assertThat(violations.stream().map(ConstraintViolation::getMessageTemplate).collect(Collectors.toList()))
                 .containsExactlyInAnyOrder(
                         "The book ISBN must be defined.",
