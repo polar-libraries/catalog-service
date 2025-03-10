@@ -4,18 +4,18 @@ import com.polarbookshop.catalog_service.domain.Book;
 import com.polarbookshop.catalog_service.domain.BookRepository;
 import com.polarbookshop.catalog_service.dto.BookRequest;
 import com.polarbookshop.catalog_service.dto.BookResponse;
-import com.polarbookshop.catalog_service.exception.BookAlreadyExistsException;
-import com.polarbookshop.catalog_service.exception.BookNotfoundException;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("integration")
 class CatalogServiceApplicationTests {
 
     @Autowired
@@ -24,11 +24,10 @@ class CatalogServiceApplicationTests {
     @Autowired
     private BookRepository bookRepository;
 
-
     @Test
     void whenPostRequestThenBookCreated() {
 
-        var expectedBook = new BookRequest("1231231231", "Title", "Author", 9.90);
+        var expectedBook = new BookRequest("1231231230", "Title", "Author", 9.90);
 
         webTestClient.post()
                 .uri("/books")
@@ -44,7 +43,7 @@ class CatalogServiceApplicationTests {
     @Test
     void whenPostRequestThenExceptionBookAlreadyExistyWhenBookCreated() {
 
-        var expectedBook = new Book("1231231231", "Title", "Author", 9.90);
+        var expectedBook = Book.of("1231231231", "Title", "Author", 9.90);
         bookRepository.save(expectedBook);
 
         webTestClient.post()
@@ -59,10 +58,10 @@ class CatalogServiceApplicationTests {
     @Test
     void whenGetRequestThenBook() {
 
-        var expectedBook = new Book("1234567890", "Title",
+        var expectedBook = Book.of("1231231232", "Title",
                 "Author", 9.90);
 
-        var expectedBook2 = new Book("9879879876", "Title2",
+        var expectedBook2 = Book.of("9879879876", "Title2",
                 "Author2", 19.90);
 
 
@@ -87,7 +86,7 @@ class CatalogServiceApplicationTests {
     @Test
     void whenGetRequestWhenFindBookDetails() {
 
-        var expectedBook = new Book("1234567890", "Title",
+        var expectedBook = Book.of("9879879874", "Title",
                 "Author", 9.90);
 
         bookRepository.save(expectedBook);
@@ -114,7 +113,7 @@ class CatalogServiceApplicationTests {
 
     @Test
     void whenDeleteRequestWhenFindBook() {
-        var expectedBook = new Book("1234567890", "Title",
+        var expectedBook = Book.of("1231231233", "Title",
                 "Author", 9.90);
 
         bookRepository.save(expectedBook);
@@ -131,8 +130,8 @@ class CatalogServiceApplicationTests {
     @Test
     void whenUpdateRequestThenUpdateBook() {
 
-        var bookUpdate = new Book("1234567890", "Harry Potter", "Teste", 18.90);
-        var expectedBook = new Book("1234567890", "Title", "Author", 9.90);
+        var bookUpdate = Book.of("1234567890", "Harry Potter", "Teste", 18.90);
+        var expectedBook = Book.of("1234567890", "Title", "Author", 9.90);
 
         bookRepository.save(expectedBook);
 

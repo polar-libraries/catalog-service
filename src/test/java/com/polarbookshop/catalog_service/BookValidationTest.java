@@ -1,7 +1,10 @@
 package com.polarbookshop.catalog_service;
 
 import com.polarbookshop.catalog_service.domain.Book;
-import jakarta.validation.*;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +26,7 @@ public class BookValidationTest {
 
     @Test
     void whenAllFieldsCorrectThenValidationSucceeds() {
-        var book = new Book("1234567890", "Title", "Author", 9.90);
+        var book = Book.of("1234567890", "Title", "Author", 9.90);
 
         var violations = getConstraintViolations(book);
 
@@ -34,7 +37,7 @@ public class BookValidationTest {
     @Test
     void whenIsbnDefinedButIncorrectThenValidationFails() {
 
-        var book = new Book("a234567890", "Title", "Author", 9.90);
+        var book =  Book.of("a234567890", "Title", "Author", 9.90);
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
@@ -44,7 +47,7 @@ public class BookValidationTest {
 
     @Test
     void whenIsbnIsNullThenValidationFails() {
-        var book = new Book(null, "Title", "Author", 9.90);
+        var book = Book.of(null, "Title", "Author", 9.90);
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
@@ -55,7 +58,7 @@ public class BookValidationTest {
 
     @Test
     void whenTitleIsNullThenValidationFails() {
-        var book = new Book("1234567890", null, "Author", 9.90);
+        var book = Book.of("1234567890", null, "Author", 9.90);
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
@@ -65,7 +68,7 @@ public class BookValidationTest {
 
     @Test
     void whenAuthorIsNullThenValidationFails() {
-        var book = new Book("1234567890", "Title", null, 9.90);
+        var book = Book.of("1234567890", "Title", null, 9.90);
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
@@ -76,7 +79,7 @@ public class BookValidationTest {
 
     @Test
     void whenPriceIsEqualsZeroAndLessThanZeroThenValidationFails() {
-        var book = new Book("1234567890", "Title", "Author", 0.0);
+        var book = Book.of("1234567890", "Title", "Author", 0.0);
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
@@ -86,7 +89,7 @@ public class BookValidationTest {
 
     @Test
     void whenPriceIsNullThenValidationFails() {
-        var book = new Book("1234567890", "Title", "Author", null);
+        var book = Book.of("1234567890", "Title", "Author", null);
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
@@ -96,7 +99,7 @@ public class BookValidationTest {
 
     @Test
     void whenAllFieldIsNullThenValidationFails() {
-        var book = new Book(null, null, null, null);
+        var book = Book.of(null, null, null, null);
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(4);
