@@ -54,8 +54,13 @@ public class BookService {
         return bookRepository.findByIsbn(isbn)
                 .map(existingBook -> {
                     var bookToUpdate =
-                            new Book(existingBook.isbn(), bookRequest.title(),
-                                    bookRequest.author(), bookRequest.price());
+                            new Book(
+                                    existingBook.id(),
+                                    existingBook.isbn(), bookRequest.title(),
+                                    bookRequest.author(), bookRequest.price(),
+                                    existingBook.createdDate(), existingBook.lastModifiedDate(),
+                                    existingBook.version()
+                            );
                     return bookRepository.save(bookToUpdate);
                 })
                 .map(BookResponse::entityToDtoResponse)
