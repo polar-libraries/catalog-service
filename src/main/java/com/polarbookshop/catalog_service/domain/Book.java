@@ -9,9 +9,11 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.Instant;
 
+@Table("book")
 public record Book(
 
         @Id
@@ -31,6 +33,8 @@ public record Book(
         @Positive(message = "The book price must be greater than zero.")
         Double price,
 
+        @NotBlank(message = "The publisher  must be defined.")
+        String publisher,
 
         @CreatedDate
         Instant createdDate,
@@ -44,11 +48,12 @@ public record Book(
 
 
     public static Book createBook(BookRequest bookRequest) {
-        return new Book(null, bookRequest.isbn(), bookRequest.title(), bookRequest.author(), bookRequest.price(), null, null, 0);
+        return new Book(null, bookRequest.isbn(), bookRequest.title(), bookRequest.author(), bookRequest.price(),
+                bookRequest.publisher(), null, null, 0);
     }
 
-    public static Book of(String isbn, String title, String author, Double price) {
-        return new Book(null, isbn, title, author, price, null, null, 0);
+    public static Book of(String isbn, String title, String author, Double price, String publisher) {
+        return new Book(null, isbn, title, author, price, publisher, null, null, 0);
     }
 
 
