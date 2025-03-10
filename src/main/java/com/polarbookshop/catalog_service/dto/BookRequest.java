@@ -19,6 +19,8 @@ public record BookRequest(
 
         @NotNull(message = "The book price must be defined.")
         @Positive(message = "The book price must be greater than zero.")
-        Double price
+        Double price,
+
+        String publisher
 ) {
 }

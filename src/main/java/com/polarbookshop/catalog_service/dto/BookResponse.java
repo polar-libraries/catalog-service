@@ -6,9 +6,11 @@ public record BookResponse
         (String isbn,
          String title,
          String author,
-         Double price) {
+         Double price,
+         String publisher
+        ) {
 
     public static BookResponse entityToDtoResponse(Book book) {
-        return new BookResponse(book.isbn(), book.title(), book.author(), book.price());
+        return new BookResponse(book.isbn(), book.title(), book.author(), book.price(), book.publisher());
     }
 }
