@@ -13,7 +13,7 @@ spring:
   application:
     name: catalog-service
   config:
-    import: "optional:configserver:http://localhost:8888"
+    import: "optional:configserver:"
   cloud:
     config:
       uri: http://localhost:8888
