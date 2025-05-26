@@ -109,8 +109,8 @@ public class BookValidationTest {
                         "The book title must be defined.",
                         "The book author must be defined.",
                         "The book price must be defined.",
-                        "The publisher  must be defined."
-                        );
+                        "The publisher must be defined."
+                );
     }
 
     private static Set<ConstraintViolation<Book>> getConstraintViolations(Book book) {
