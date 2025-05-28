@@ -26,7 +26,7 @@ public class BookValidationTest {
 
     @Test
     void whenAllFieldsCorrectThenValidationSucceeds() {
-        var book = Book.of("1234567890", "Title", "Author", 9.90,"Manning");
+        var book = Book.of("1234567890", "Title", "Author", 9.90, "Manning");
 
         var violations = getConstraintViolations(book);
 
@@ -37,7 +37,7 @@ public class BookValidationTest {
     @Test
     void whenIsbnDefinedButIncorrectThenValidationFails() {
 
-        var book = Book.of("a234567890", "Title", "Author", 9.90,"Manning");
+        var book = Book.of("a234567890", "Title", "Author", 9.90, "Manning");
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
@@ -47,7 +47,7 @@ public class BookValidationTest {
 
     @Test
     void whenIsbnIsNullThenValidationFails() {
-        var book = Book.of(null, "Title", "Author", 9.90,"Manning");
+        var book = Book.of(null, "Title", "Author", 9.90, "Manning");
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
@@ -58,7 +58,7 @@ public class BookValidationTest {
 
     @Test
     void whenTitleIsNullThenValidationFails() {
-        var book = Book.of("1234567890", null, "Author", 9.90,"Manning");
+        var book = Book.of("1234567890", null, "Author", 9.90, "Manning");
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
@@ -68,7 +68,7 @@ public class BookValidationTest {
 
     @Test
     void whenAuthorIsNullThenValidationFails() {
-        var book = Book.of("1234567890", "Title", null, 9.90,"Manning");
+        var book = Book.of("1234567890", "Title", null, 9.90, "Manning");
         var violations = getConstraintViolations(book);
 
         assertThat(violations).hasSize(1);
