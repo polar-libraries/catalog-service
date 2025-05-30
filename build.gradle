@@ -39,8 +39,10 @@ dependencies {
     implementation 'org.springframework.retry:spring-retry'
     implementation 'org.flywaydb:flyway-core:9.8.1'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 
