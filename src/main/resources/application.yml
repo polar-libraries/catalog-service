@@ -40,6 +40,13 @@ spring:
         jwt:
           issuer-uri: http://polar-keycloak:8080/realms/PolarBookshop
 
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+
+info:
+  system: Polar Bookshop
+
 management:
   endpoints:
     web:
@@ -54,5 +61,6 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+
 polar:
   greeting: Welcome to the local book catalog!

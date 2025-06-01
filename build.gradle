@@ -21,6 +21,7 @@ configurations {
     }
 }
 ext {
+    set('otelVersion', "1.33.3")
     set('springCloudVersion', "2024.0.0")
     set('testcontainersVersion', "1.19.8")
     set('testKeycloakVersion', "3.3.1")
@@ -39,10 +40,10 @@ dependencies {
     implementation 'org.springframework.retry:spring-retry'
     implementation 'org.flywaydb:flyway-core:9.8.1'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-    runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+    runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
+    runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 
@@ -63,6 +64,9 @@ dependencyManagement {
     }
 }
 
+springBoot {
+    buildInfo()
+}
 
 tasks.named('test') {
     useJUnitPlatform()
@@ -81,6 +85,7 @@ jacocoTestReport {
 bootBuildImage {
     imageName = "${project.name}"
     environment = ["BP_JVM_VERSION": "17.*"]
+    builder = "docker.io/paketobuildpacks/builder-jammy-base"
 
     docker {
         publishRegistry {
