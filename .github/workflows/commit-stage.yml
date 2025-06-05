@@ -5,6 +5,8 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: polar-libraries/catalog-service
   VERSION: ${{  github.sha  }}
+  VERSION: latest
+ 
 
 jobs:
   build:
