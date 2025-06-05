@@ -3,8 +3,8 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: polarbookshop/catalog-service
-  VERSION: latest
+  IMAGE_NAME: polar-libraries/catalog-service
+  VERSION: ${{  github.sha  }}
 
 jobs:
   build:
@@ -48,6 +48,15 @@ jobs:
       - name: Validate Kubernetes manifests
         run: |
           kustomize build k8s | kubeconform --strict -
+      - name: Publish container image
+        run: docker push \
+               ${{ env.registry }}/${{ env.IMAGE.NAME}}:${{ env.VERSION }}
+      - name: Publish container image (latest)
+        run: |
+          docker tag \
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} \
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
   package:
     name: Package and Publish
     if: ${{ github.ref == 'refs/heads/main' }}
