@@ -4,6 +4,7 @@ on: push
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: polarbookshop/catalog-service
+  IMAGE_NAME: polar-libraries/catalog-service
   VERSION: ${{ github.sha }}
 
 jobs:
@@ -95,4 +96,5 @@ jobs:
         run: |
           docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} \
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
