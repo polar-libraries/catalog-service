@@ -1,3 +1,8 @@
+<br>
+Desenvolvedor: Erick Nunes da Silva 
+<br>
+GitHub: https://github.com/erickknsilva
+
 # Catalog Service :bookmark_tabs:
 
 #### Descrição	
